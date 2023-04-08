@@ -15,7 +15,7 @@ public class HomingRocketController : MonoBehaviour
     {
         if (target)
         {
-            transform.Translate((target.gameObject.transform.position - transform.position).normalized * speed * Time.deltaTime, Space.World);
+            transform.Translate((target.gameObject.transform.position - transform.position).normalized * (speed * Time.deltaTime), Space.World);
             transform.forward = (target.gameObject.transform.position - transform.position).normalized;
         }
         else
@@ -31,7 +31,7 @@ public class HomingRocketController : MonoBehaviour
             collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position).normalized * strength, ForceMode.Impulse);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Ground"))
+        else if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Rocket"))
         {
             Destroy(gameObject);
         }

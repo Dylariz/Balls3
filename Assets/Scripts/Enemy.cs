@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         var lookDirection = (_player.transform.position - transform.position).normalized;
-        _enemyRb.AddForce(lookDirection * speed * Time.deltaTime * 100);
+        _enemyRb.AddForce(lookDirection * (speed * Time.deltaTime * 100));
 
         if (transform.position.y < -10 && !isBoss)
         {
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && isStrongEnemy)
+        if (isStrongEnemy && collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerController>().hasPowerup == false && collision.gameObject.GetComponent<PlayerController>().currentAction != PowerupActions.Push)
         {
             var playerRb = collision.gameObject.GetComponent<Rigidbody>();
             var awayFromEnemy = (collision.gameObject.transform.position - transform.position).normalized;

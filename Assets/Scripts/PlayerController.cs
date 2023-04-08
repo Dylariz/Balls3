@@ -6,17 +6,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float speed = 5;
-    private bool hasPowerup = false;
-    private float powerupStrength = 15;
+    private float powerupStrength = 35;
     private float powerupLifeTime = 8;
     private Vector3 starPos;
     private Rigidbody playerRb;
     public GameObject focalPoint;
     public GameObject rocketPrefab;
     public GameObject powerupIndicator;
+    public bool hasPowerup = false;
+    public PowerupActions currentAction;
     
-    
-    private PowerupActions currentAction;
     private float rocketCooldown = 0.8f;
     private float smashAttackVerticalImpulse = 10;
     private float smashAttackImpulse = 20;
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed * Time.deltaTime * 100);
+        playerRb.AddForce(focalPoint.transform.forward * (forwardInput * speed * Time.deltaTime * 100));
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.55f, 0);
 
         if (hasPowerup && currentAction == PowerupActions.Rockets)
@@ -102,7 +101,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(Vector3.up * smashAttackVerticalImpulse, ForceMode.Impulse);
             inAir = true;
             yield return new WaitForSeconds(0.8f);
-            playerRb.AddForce(Vector3.down * smashAttackVerticalImpulse * 5, ForceMode.Impulse);
+            playerRb.AddForce(Vector3.down * (smashAttackVerticalImpulse * 5), ForceMode.Impulse);
             yield return new WaitForSeconds(powerupLifeTime / countOfSmashAttacks - 0.8f);
         }
     }

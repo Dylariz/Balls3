@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - PlayerGoal
   - Ground
+  - Rocket
   layers:
   - Default
   - TransparentFX
