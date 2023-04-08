@@ -55,11 +55,13 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isStrongEnemy && collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerController>().hasPowerup == false && collision.gameObject.GetComponent<PlayerController>().currentAction != PowerupActions.Push)
+        if (isStrongEnemy && collision.gameObject.CompareTag("Player"))
         {
+            var controller = collision.gameObject.GetComponent<PlayerController>();
+            if (controller.hasPowerup && controller.currentAction == PowerupActions.Push) return;
+            
             var playerRb = collision.gameObject.GetComponent<Rigidbody>();
             var awayFromEnemy = (collision.gameObject.transform.position - transform.position).normalized;
-
             playerRb.AddForce(awayFromEnemy * _strongEnemyStrength, ForceMode.Impulse);
         }
     }
@@ -69,18 +71,7 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_spawnBallsCooldown);
-            Instantiate(enemyPrefab, transform.position + new Vector3(getIntRandom(-1, 1, new []{0}) * Random.Range(3f, 5f), 0.1f, getIntRandom(-1, 1, new []{0}) * Random.Range(3f, 5f)), enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab, transform.position + new Vector3(Random.Range(-1, 2) * Random.Range(3f, 5f), 0.1f, Random.Range(-1, 2) * Random.Range(3f, 5f)), enemyPrefab.transform.rotation);
         }
-    }
-    
-    private int getIntRandom(int min, int max, params int[] exclude)
-    {
-        int result = 0;
-        do
-        {
-            result = Random.Range(min, max + 1);
-        }
-        while (exclude.Contains(result));
-        return result;
     }
 }

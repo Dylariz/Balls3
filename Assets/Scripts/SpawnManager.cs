@@ -71,6 +71,16 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 GenerateSpawnPosition()
     {
-        return(new Vector3(Random.Range(-spawnRange, spawnRange), 0, Random.Range(-spawnRange, spawnRange)));
+        var player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 pos;
+        while (true)
+        {
+            pos = new Vector3(Random.Range(-spawnRange, spawnRange), 0, Random.Range(-spawnRange, spawnRange));
+            if ((player.transform.position - pos).magnitude > 6)
+            {
+                break;
+            }
+        }
+        return pos;
     }
 }

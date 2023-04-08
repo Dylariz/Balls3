@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float speed = 5;
-    private float powerupStrength = 35;
+    private float powerupStrength = 25;
     private float powerupLifeTime = 8;
     private Vector3 starPos;
     private Rigidbody playerRb;
