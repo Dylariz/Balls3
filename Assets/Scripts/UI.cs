@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
@@ -27,16 +26,5 @@ public class UI : MonoBehaviour
             score = 0;
             cameraAudio.PlayOneShot(miPodveliRodinu);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Menu");
-        }
     }
-
-    /*private IEnumerator PausePlay()
-    {
-        yield return new WaitForSeconds(miPodveliRodinu.length);
-        cameraAudio.Play();
-    }*/
 }
