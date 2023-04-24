@@ -8,5 +8,8 @@ Drop all enemies down and don't fall
 Try to get 10 points!
 
 ## Control:
-A, D - rotate camera
-W, S - push the black ball forward or backward in the direction of the camera
+- A, D: rotate camera
+- W, S: push the black ball forward or backward in the direction of the camera
+---
+- P or Space: pause game
+- Esc: exit in menu
