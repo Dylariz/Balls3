@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class UI : MonoBehaviour
 {
@@ -29,16 +26,5 @@ public class UI : MonoBehaviour
             score = 0;
             cameraAudio.PlayOneShot(miPodveliRodinu);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
-
-    /*private IEnumerator PausePlay()
-    {
-        yield return new WaitForSeconds(miPodveliRodinu.length);
-        cameraAudio.Play();
-    }*/
 }
