@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,11 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI topScoreText;
     public AudioSource cameraAudio;
     public AudioClip miPodveliRodinu;
+
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
 
     // Update is called once per frame
     void Update()
