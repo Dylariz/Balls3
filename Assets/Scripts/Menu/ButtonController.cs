@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +12,7 @@ public class ButtonController : MonoBehaviour
     private Vector3 childObjectDefaultPos;
     private Image imageComponent;
     private Sprite normalSprite;
+    private int LoadCounter;
 
     void Start()
     {
@@ -25,6 +24,19 @@ public class ButtonController : MonoBehaviour
     public void PlayAnim()
     {
         StartCoroutine(AnimationRoutine());
+    }
+
+    private void OnEnable()
+    {
+        if (LoadCounter < 2)
+        {
+            LoadCounter++;
+        }
+        else
+        {
+            StopAllCoroutines();
+            SetNormalCondition();
+        }
     }
 
     private void SetPressedCondition()
