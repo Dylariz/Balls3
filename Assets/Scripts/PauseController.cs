@@ -47,7 +47,7 @@ public class PauseController : MonoBehaviour
 
     private void ToggleMenuVisibility(bool isVisible)
     {
-        foreach (GameObject g in pauseMenuObjects)
+        foreach (var g in pauseMenuObjects)
         {
             g.SetActive(isVisible);
         }

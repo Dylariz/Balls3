@@ -1,17 +1,19 @@
+using System;
 using UnityEngine;
 
 public class HomingRocketController : MonoBehaviour
 {
-    private float speed = 20;
-    private float strength = 15;
     public GameObject target;
 
-
+    private float speed = 20;
+    private float strength = 15;
+    
     private void Update()
     {
         if (target)
         {
             transform.Translate((target.gameObject.transform.position - transform.position).normalized * (speed * Time.deltaTime), Space.World);
+            
             transform.forward = (target.gameObject.transform.position - transform.position).normalized;
         }
         else
@@ -20,14 +22,14 @@ public class HomingRocketController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position).normalized * strength, ForceMode.Impulse);
+            other.gameObject.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * strength, ForceMode.Impulse);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Rocket"))
+        else if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Rocket"))
         {
             Destroy(gameObject);
         }
