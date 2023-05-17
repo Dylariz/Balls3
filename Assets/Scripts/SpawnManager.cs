@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,11 @@ public class SpawnManager : MonoBehaviour
     private float spawnRange = 9;
     private int enemyCount;
     private int waveNumber;
+
+    private void Start()
+    {
+        UI.GameOver += OnResetGame;
+    }
 
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
@@ -59,20 +65,19 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(waveNumber);
             Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
+    }
 
-        if (UI.gameOver)
-        {
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (var t in enemies)
-                Destroy(t);
+    private void OnResetGame()
+    {
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var t in enemies)
+            Destroy(t);
 
-            var powerUps = GameObject.FindGameObjectsWithTag("Powerup");
-            foreach (var t in powerUps)
-                Destroy(t);
-            waveNumber = 0;
-            enemyCount = 0;
-            UI.gameOver = false;
-        }
+        var powerUps = GameObject.FindGameObjectsWithTag("Powerup");
+        foreach (var t in powerUps)
+            Destroy(t);
+        waveNumber = 0;
+        enemyCount = 0;
     }
 
     private Vector3 GenerateSpawnPosition()
