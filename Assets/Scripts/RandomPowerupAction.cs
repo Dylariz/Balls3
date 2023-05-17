@@ -7,8 +7,7 @@ public class RandomPowerupAction : MonoBehaviour
     private Material _powerupMaterial;
     private int _mainTex;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _mainTex = Shader.PropertyToID("_MainTex");
         _powerupMaterial = GetComponent<Renderer>().material;

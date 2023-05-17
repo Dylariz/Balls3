@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseController : MonoBehaviour
 {
-    public static bool GameIsPaused { get; private set; }
+    private static bool GameIsPaused { get; set; }
     public AudioSource cameraAudio;
 
     private List<GameObject> pauseMenuObjects;
@@ -18,7 +18,7 @@ public class PauseController : MonoBehaviour
         ToggleMenuVisibility(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -45,7 +45,7 @@ public class PauseController : MonoBehaviour
         }
     }
 
-    void ToggleMenuVisibility(bool isVisible)
+    private void ToggleMenuVisibility(bool isVisible)
     {
         foreach (GameObject g in pauseMenuObjects)
         {

@@ -4,8 +4,8 @@ using UnityEngine;
 public class UI : MonoBehaviour
 {
     public static bool gameOver = false;
-    public static int score = 0;
-    private int topScore = 0;
+    public static int score;
+    private int topScore;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI topScoreText;
     public AudioSource cameraAudio;
@@ -16,8 +16,7 @@ public class UI : MonoBehaviour
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         scoreText.SetText("Score: " + score);
         if (score > topScore)

@@ -1,39 +1,51 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 5;
-    private float powerupStrength = 25;
-    private float powerupLifeTime = 8;
-    private Vector3 starPos;
-    private Rigidbody playerRb;
     public GameObject focalPoint;
     public GameObject rocketPrefab;
     public GameObject powerupIndicator;
     public bool hasPowerup = false;
     public PowerupActions currentAction;
     
+    private float speed = 5;
+    private float powerupStrength = 25;
+    private float powerupLifeTime = 8;
+    private Vector3 starPos;
+    private Rigidbody playerRb;
+    
     private float rocketCooldown = 0.8f;
+    private int countOfRocketsPerAttack = 4;
     private float smashAttackVerticalImpulse = 10;
     private float smashAttackImpulse = 20;
-    private float countOfSmashAttacks = 4;
+    private int countOfSmashAttacks = 4;
     private bool inAir = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         starPos = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * (forwardInput * speed * Time.deltaTime * 100));
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.55f, 0);
 
+        // GameOver
+        if (transform.position.y < -15)
+        {
+            UI.gameOver = true;
+            transform.position = starPos;
+            playerRb.velocity = Vector3.zero;
+            StopAllCoroutines();
+            hasPowerup = false;
+            powerupIndicator.gameObject.SetActive(false);
+        }
+        
         if (hasPowerup && currentAction == PowerupActions.Rockets)
         {
             if (rocketCooldown < 0)
@@ -43,16 +55,6 @@ public class PlayerController : MonoBehaviour
             }
 
             rocketCooldown -= Time.deltaTime;
-        }
-
-        if (transform.position.y < -15)
-        {
-            UI.gameOver = true;
-            transform.position = starPos;
-            playerRb.velocity = Vector3.zero;
-            StopAllCoroutines();
-            hasPowerup = false;
-            powerupIndicator.gameObject.SetActive(false);
         }
     }
 
@@ -107,15 +109,19 @@ public class PlayerController : MonoBehaviour
     private void SpawnHomingRockets()
     {
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var t in enemies)
+        Array.Sort(enemies, (o1, o2) => Vector3.Distance(o1.transform.position, transform.position) >=
+                                        Vector3.Distance(o2.transform.position, transform.position) ? 1 : -1);
+        
+        for (int i = 0; i < (enemies.Length < countOfRocketsPerAttack ? enemies.Length : countOfRocketsPerAttack); i++)
         {
             var rocket = Instantiate(rocketPrefab, transform.position + new Vector3(0, 1.05f, 0), rocketPrefab.transform.rotation);
-            rocket.gameObject.GetComponent<HomingRocketController>().target = t;
+            rocket.gameObject.GetComponent<HomingRocketController>().target = enemies[i];
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Enemy") && hasPowerup && currentAction == PowerupActions.Push)
         {
             var enemyRb = collision.gameObject.GetComponent<Rigidbody>();

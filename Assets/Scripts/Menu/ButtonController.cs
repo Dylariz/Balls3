@@ -12,9 +12,8 @@ public class ButtonController : MonoBehaviour
     private Vector3 childObjectDefaultPos;
     private Image imageComponent;
     private Sprite normalSprite;
-    private int LoadCounter;
 
-    void Start()
+    private void Awake()
     {
         imageComponent = GetComponent<Image>();
         childObjectDefaultPos = childObject.transform.localPosition;
@@ -28,15 +27,8 @@ public class ButtonController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (LoadCounter < 2)
-        {
-            LoadCounter++;
-        }
-        else
-        {
-            StopAllCoroutines();
-            SetNormalCondition();
-        }
+        StopAllCoroutines();
+        SetNormalCondition();
     }
 
     private void SetPressedCondition()

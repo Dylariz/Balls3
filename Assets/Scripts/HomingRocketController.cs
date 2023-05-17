@@ -5,10 +5,9 @@ public class HomingRocketController : MonoBehaviour
     private float speed = 20;
     private float strength = 15;
     public GameObject target;
-    
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         if (target)
         {

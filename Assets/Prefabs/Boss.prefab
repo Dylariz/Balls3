@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2400300069571794443}
   - component: {fileID: 2400300069571794551}
   - component: {fileID: 2400300069571794548}
+  - component: {fileID: -5197962110866469674}
+  - component: {fileID: -8897822682373772357}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -31,6 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.9, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +57,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -125,7 +129,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199eda69247fb3c478a58f5910d86d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStrongEnemy: 1
-  isBoss: 1
-  enemyPrefab: {fileID: 6204165553912039950, guid: 4f9b68cfe9180704ea6db186e7c6af82, type: 3}
   speed: 6
+  deathHeight: -20
+--- !u!114 &-5197962110866469674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400300069571794442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa71a4fb9c5030c4b94f0fea7945040a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 6204165553912039950, guid: 4f9b68cfe9180704ea6db186e7c6af82, type: 3}
+--- !u!114 &-8897822682373772357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400300069571794442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c3c107c4c5938479a7a2609c2f3b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pushStrength: 15
