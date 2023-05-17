@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public static bool gameOver = false;
-    public static int score = 0;
-    private int topScore = 0;
+    public static event Action GameOver;
+    public static int score;
+    private int topScore;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI topScoreText;
     public AudioSource cameraAudio;
@@ -15,10 +15,10 @@ public class UI : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
+        GameOver += PlayDefeatMusic;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         scoreText.SetText("Score: " + score);
         if (score > topScore)
@@ -26,11 +26,16 @@ public class UI : MonoBehaviour
             topScore = score;
             topScoreText.SetText("Top Score: " + topScore);
         }
+    }
 
-        if (gameOver)
-        {
-            score = 0;
-            cameraAudio.PlayOneShot(miPodveliRodinu);
-        }
+    private void PlayDefeatMusic()
+    {
+        cameraAudio.PlayOneShot(miPodveliRodinu);
+    }
+    
+    public static void ResetGame()
+    {
+        score = 0;
+        GameOver?.Invoke();
     }
 }

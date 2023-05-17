@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6204165553912039951}
   - component: {fileID: 6204165553912040051}
   - component: {fileID: 6204165553912040048}
+  - component: {fileID: 4718806212813962975}
   m_Layer: 0
   m_Name: StrongEnemy
   m_TagString: Enemy
@@ -31,6 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.99, y: 0.1, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +56,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -125,6 +128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199eda69247fb3c478a58f5910d86d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStrongEnemy: 1
-  isBoss: 0
-  enemyPrefab: {fileID: 7148384174215499493, guid: b017575273d4bd84ca1b7fdf7334ab75, type: 3}
+  speed: 4
+  deathHeight: -10
+--- !u!114 &4718806212813962975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204165553912039950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c3c107c4c5938479a7a2609c2f3b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pushStrength: 10

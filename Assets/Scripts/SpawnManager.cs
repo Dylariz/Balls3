@@ -7,26 +7,34 @@ public class SpawnManager : MonoBehaviour
     public GameObject strongEnemyPrefab;
     public GameObject bossPrefab;
     public GameObject powerupPrefab;
+
     private GameObject bossInstance;
-    private bool bossIsHere = false;
+    
     private float spawnRange = 9;
     private int enemyCount;
-    private int waveNumber = 0;
+    private int waveNumber;
+
+    private void Start()
+    {
+        UI.GameOver += OnResetGame;
+    }
+
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
         if (waveNumber % 10 == 0)
         {
             bossInstance = Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
-            bossIsHere = true;
+            bossInstance.GetComponent<Enemy>().Died += OnBossDied;
+            enemyCount = 1;
         }
         else
         {
             enemyCount = enemiesToSpawn;
             for (int i = 0; i < enemiesToSpawn; i++)
             {
-                var obj = Instantiate(Random.Range(0, 10) < 8 ? enemyPrefab : strongEnemyPrefab,
+                var enemy = Instantiate(Random.Range(0, 10) < 8 ? enemyPrefab : strongEnemyPrefab,
                     GenerateSpawnPosition(), enemyPrefab.transform.rotation);
-                obj.GetComponent<Enemy>().Died += OnEnemyDied;
+                enemy.GetComponent<Enemy>().Died += OnEnemyDied;
             }
         }
     }
@@ -36,34 +44,39 @@ public class SpawnManager : MonoBehaviour
         enemyCount--;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnBossDied()
     {
-        if (enemyCount == 0 && !bossIsHere)
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var t in enemies)
+        {
+            Destroy(t);
+        }
+        enemyCount--;
+    }
+
+    private void Update()
+    {
+        // Enemy Defeat
+        if (enemyCount == 0)
         {
             waveNumber++;
             UI.score = waveNumber - 1;
             SpawnEnemyWave(waveNumber);
             Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
-        else if (!bossInstance)
-        {
-            bossIsHere = false;
-        }
+    }
 
-        if (UI.gameOver)
-        {
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (var t in enemies)
-                Destroy(t);
-            
-            var powerUps = GameObject.FindGameObjectsWithTag("Powerup");
-            foreach (var t in powerUps)
-                Destroy(t);
-            waveNumber = 0;
-            enemyCount = 0;
-            UI.gameOver = false;
-        }
+    private void OnResetGame()
+    {
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var t in enemies)
+            Destroy(t);
+
+        var powerUps = GameObject.FindGameObjectsWithTag("Powerup");
+        foreach (var t in powerUps)
+            Destroy(t);
+        waveNumber = 0;
+        enemyCount = 0;
     }
 
     private Vector3 GenerateSpawnPosition()
@@ -78,6 +91,7 @@ public class SpawnManager : MonoBehaviour
                 break;
             }
         }
+
         return pos;
     }
 }

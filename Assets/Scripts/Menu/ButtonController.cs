@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +13,7 @@ public class ButtonController : MonoBehaviour
     private Image imageComponent;
     private Sprite normalSprite;
 
-    void Start()
+    private void Awake()
     {
         imageComponent = GetComponent<Image>();
         childObjectDefaultPos = childObject.transform.localPosition;
@@ -25,6 +23,12 @@ public class ButtonController : MonoBehaviour
     public void PlayAnim()
     {
         StartCoroutine(AnimationRoutine());
+    }
+
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+        SetNormalCondition();
     }
 
     private void SetPressedCondition()
