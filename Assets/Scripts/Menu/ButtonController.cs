@@ -9,15 +9,15 @@ public class ButtonController : MonoBehaviour
     public Sprite pressedSprite;
     public float animTime = 0.1f;
     
-    private Vector3 childObjectDefaultPos;
-    private Image imageComponent;
-    private Sprite normalSprite;
+    private Vector3 _childObjectDefaultPos;
+    private Image _imageComponent;
+    private Sprite _normalSprite;
 
     private void Awake()
     {
-        imageComponent = GetComponent<Image>();
-        childObjectDefaultPos = childObject.transform.localPosition;
-        normalSprite = imageComponent.sprite;
+        _imageComponent = GetComponent<Image>();
+        _childObjectDefaultPos = childObject.transform.localPosition;
+        _normalSprite = _imageComponent.sprite;
     }
     
     public void PlayAnim()
@@ -33,14 +33,14 @@ public class ButtonController : MonoBehaviour
 
     private void SetPressedCondition()
     {
-        imageComponent.sprite = pressedSprite;
-        childObject.transform.localPosition = childObjectDefaultPos + new Vector3(0, -moveDistanse);
+        _imageComponent.sprite = pressedSprite;
+        childObject.transform.localPosition = _childObjectDefaultPos + new Vector3(0, -moveDistanse);
     }
     
     private void SetNormalCondition()
     {
-        imageComponent.sprite = normalSprite;
-        childObject.transform.localPosition = childObjectDefaultPos;
+        _imageComponent.sprite = _normalSprite;
+        childObject.transform.localPosition = _childObjectDefaultPos;
     }
     
     private IEnumerator AnimationRoutine()

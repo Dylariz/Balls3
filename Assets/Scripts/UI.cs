@@ -6,7 +6,7 @@ public class UI : MonoBehaviour
 {
     public static event Action GameOver;
     public static int score;
-    private int topScore;
+    private int _topScore;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI topScoreText;
     public AudioSource cameraAudio;
@@ -21,10 +21,10 @@ public class UI : MonoBehaviour
     private void Update()
     {
         scoreText.SetText("Score: " + score);
-        if (score > topScore)
+        if (score > _topScore)
         {
-            topScore = score;
-            topScoreText.SetText("Top Score: " + topScore);
+            _topScore = score;
+            topScoreText.SetText("Top Score: " + _topScore);
         }
     }
 

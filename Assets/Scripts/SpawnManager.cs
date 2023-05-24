@@ -8,11 +8,11 @@ public class SpawnManager : MonoBehaviour
     public GameObject bossPrefab;
     public GameObject powerupPrefab;
 
-    private GameObject bossInstance;
+    private GameObject _bossInstance;
     
-    private float spawnRange = 9;
-    private int enemyCount;
-    private int waveNumber;
+    private float _spawnRange = 9;
+    private int _enemyCount;
+    private int _waveNumber;
 
     private void Start()
     {
@@ -21,15 +21,15 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
-        if (waveNumber % 10 == 0)
+        if (_waveNumber % 10 == 0)
         {
-            bossInstance = Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
-            bossInstance.GetComponent<Enemy>().Died += OnBossDied;
-            enemyCount = 1;
+            _bossInstance = Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
+            _bossInstance.GetComponent<Enemy>().Died += OnBossDied;
+            _enemyCount = 1;
         }
         else
         {
-            enemyCount = enemiesToSpawn;
+            _enemyCount = enemiesToSpawn;
             for (int i = 0; i < enemiesToSpawn; i++)
             {
                 var enemy = Instantiate(Random.Range(0, 10) < 8 ? enemyPrefab : strongEnemyPrefab,
@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
 
     private void OnEnemyDied()
     {
-        enemyCount--;
+        _enemyCount--;
     }
 
     private void OnBossDied()
@@ -51,17 +51,17 @@ public class SpawnManager : MonoBehaviour
         {
             Destroy(t);
         }
-        enemyCount--;
+        _enemyCount--;
     }
 
     private void Update()
     {
         // Enemy Defeat
-        if (enemyCount == 0)
+        if (_enemyCount == 0)
         {
-            waveNumber++;
-            UI.score = waveNumber - 1;
-            SpawnEnemyWave(waveNumber);
+            _waveNumber++;
+            UI.score = _waveNumber - 1;
+            SpawnEnemyWave(_waveNumber);
             Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
     }
@@ -75,8 +75,8 @@ public class SpawnManager : MonoBehaviour
         var powerUps = GameObject.FindGameObjectsWithTag("Powerup");
         foreach (var t in powerUps)
             Destroy(t);
-        waveNumber = 0;
-        enemyCount = 0;
+        _waveNumber = 0;
+        _enemyCount = 0;
     }
 
     private Vector3 GenerateSpawnPosition()
@@ -85,7 +85,7 @@ public class SpawnManager : MonoBehaviour
         Vector3 pos;
         while (true)
         {
-            pos = new Vector3(Random.Range(-spawnRange, spawnRange), 0, Random.Range(-spawnRange, spawnRange));
+            pos = new Vector3(Random.Range(-_spawnRange, _spawnRange), 0, Random.Range(-_spawnRange, _spawnRange));
             if ((player.transform.position - pos).magnitude > 6)
             {
                 break;

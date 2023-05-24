@@ -7,12 +7,12 @@ public class PauseController : MonoBehaviour
     private static bool GameIsPaused { get; set; }
     public AudioSource cameraAudio;
 
-    private List<GameObject> pauseMenuObjects;
+    private List<GameObject> _pauseMenuObjects;
 
     private void Start()
     {
-        pauseMenuObjects = GetComponentsInChildren<Transform>().Select(x => x.gameObject).ToList();
-        pauseMenuObjects.Remove(gameObject);
+        _pauseMenuObjects = GetComponentsInChildren<Transform>().Select(x => x.gameObject).ToList();
+        _pauseMenuObjects.Remove(gameObject);
         GameIsPaused = false;
         
         ToggleMenuVisibility(false);
@@ -47,7 +47,7 @@ public class PauseController : MonoBehaviour
 
     private void ToggleMenuVisibility(bool isVisible)
     {
-        foreach (var g in pauseMenuObjects)
+        foreach (var g in _pauseMenuObjects)
         {
             g.SetActive(isVisible);
         }

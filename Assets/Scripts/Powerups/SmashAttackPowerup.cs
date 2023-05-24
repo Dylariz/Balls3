@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class SmashAttackPowerup : Powerup
 {
-    private Rigidbody playerRb;
-    private bool inAir;
+    private Rigidbody _playerRb;
+    private bool _inAir;
 
     private void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
+        _playerRb = GetComponent<Rigidbody>();
         StartCoroutine(SmashAttackWithRoutine());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (inAir)
+        if (_inAir)
         {
-            inAir = false;
+            _inAir = false;
             var enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
             for (int i = 0; i < enemies.Length; i++)
@@ -32,10 +32,10 @@ public class SmashAttackPowerup : Powerup
     {
         for (int i = 0; i < powerupSettings.countOfSmashAttacks; i++)
         {
-            playerRb.AddForce(Vector3.up * powerupSettings.smashAttackVerticalImpulse, ForceMode.Impulse);
-            inAir = true;
+            _playerRb.AddForce(Vector3.up * powerupSettings.smashAttackVerticalImpulse, ForceMode.Impulse);
+            _inAir = true;
             yield return new WaitForSeconds(0.8f);
-            playerRb.AddForce(Vector3.down * (powerupSettings.smashAttackVerticalImpulse * 5), ForceMode.Impulse);
+            _playerRb.AddForce(Vector3.down * (powerupSettings.smashAttackVerticalImpulse * 5), ForceMode.Impulse);
             yield return new WaitForSeconds(powerupSettings.powerupLifeTime / powerupSettings.countOfSmashAttacks - 0.8f);
         }
     }

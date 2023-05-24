@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -397,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1742899641471652, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4428908044626120, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
       propertyPath: m_RootOrder
@@ -468,9 +468,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 23541399822167384, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23541399822167384, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 864e199b44288724a95cd130262f2344, type: 2}
+      objectReference: {fileID: 2100000, guid: 65ed44e6245e4334a8ef2b25675ea5c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
 --- !u!1 &307882227
@@ -798,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a976898420439abd3195c783818f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupIndicator: {fileID: 764936530}
+  powerupIndicatorRenderer: {fileID: 764936536}
   powerupSettings: {fileID: 11400000, guid: a8238e8150281ea49a502a30f832be91, type: 2}
 --- !u!1 &764936530 stripped
 GameObject:
@@ -831,6 +835,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformOfObjectToFollow: {fileID: 588349664}
+--- !u!23 &764936536 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23541399822167384, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
+  m_PrefabInstance: {fileID: 251094124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &772424046
 PrefabInstance:
   m_ObjectHideFlags: 0

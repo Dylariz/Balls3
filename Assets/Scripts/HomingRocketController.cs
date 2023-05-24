@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HomingRocketController : MonoBehaviour
 {
     public GameObject target;
 
-    private float speed = 20;
-    private float strength = 15;
+    public float speed = 20;
+    public float strength = 15;
     
     private void Update()
     {

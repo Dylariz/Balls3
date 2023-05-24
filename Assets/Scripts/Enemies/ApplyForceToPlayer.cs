@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ApplyForceToPlayer : MonoBehaviour
 {
-    public float _pushStrength = 10;
+    [FormerlySerializedAs("_pushStrength")] public float pushStrength = 10;
     private void OnCollisionEnter(Collision collision)
     {
         var powerup = collision.gameObject.GetComponent<PowerupHandler>();
@@ -12,7 +13,7 @@ public class ApplyForceToPlayer : MonoBehaviour
             
             var playerRb = collision.gameObject.GetComponent<Rigidbody>();
             var awayFromEnemy = (collision.gameObject.transform.position - transform.position).normalized;
-            playerRb.AddForce(awayFromEnemy * _pushStrength, ForceMode.Impulse);
+            playerRb.AddForce(awayFromEnemy * pushStrength, ForceMode.Impulse);
         }
     }
 }

@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PowerupHandler : MonoBehaviour
 {
-    public GameObject powerupIndicator;
+    public Renderer powerupIndicatorRenderer;
     public PowerupSettings powerupSettings;
     
     // Conditions
     [NonSerialized] public Powerup.Actions currentAction;
     [NonSerialized] public bool hasPowerup;
 
-    private Powerup currentPowerup;
+    private Powerup _currentPowerup;
+    private int _mainTex;
 
     private void Start()
     {
         UI.GameOver += OnResetGame;
+        powerupIndicatorRenderer.enabled = false;
+        _mainTex = Shader.PropertyToID("_MainTex");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,33 +27,33 @@ public class PowerupHandler : MonoBehaviour
         {
             currentAction = other.gameObject.GetComponent<RandomPowerupAction>().actionOfPowerup;
             hasPowerup = true;
-            powerupIndicator.gameObject.SetActive(true);
-            var materialOfIndicator = powerupIndicator.gameObject.GetComponent<Renderer>().material;
+            powerupIndicatorRenderer.enabled = true;
+            var materialOfIndicator = powerupIndicatorRenderer.material;
 
-            if (currentPowerup)
+            if (_currentPowerup)
             {
-                Destroy(currentPowerup);
+                Destroy(_currentPowerup);
             }
 
             switch (currentAction)
             {
                 case Powerup.Actions.Push:
                     materialOfIndicator.SetColor("_Color", Color.HSVToRGB(33/360f, 85/100f, 1));
-                    currentPowerup = gameObject.AddComponent<PushPowerup>();
+                    _currentPowerup = gameObject.AddComponent<PushPowerup>();
                     break;
                 case Powerup.Actions.Rockets:
                     materialOfIndicator.SetColor("_Color", Color.HSVToRGB(230/360f, 75/100f, 1));
-                    currentPowerup = gameObject.AddComponent<HomingRocketsPowerup>();
+                    _currentPowerup = gameObject.AddComponent<HomingRocketsPowerup>();
                     break;
                 case Powerup.Actions.SmashAttack:
                     materialOfIndicator.SetColor("_Color", Color.HSVToRGB(0, 95/100f, 1));
-                    currentPowerup = gameObject.AddComponent<SmashAttackPowerup>();
+                    _currentPowerup = gameObject.AddComponent<SmashAttackPowerup>();
                     break;
             }
 
-            currentPowerup.powerupSettings = powerupSettings;
+            _currentPowerup.powerupSettings = powerupSettings;
             StopAllCoroutines();
-            StartCoroutine(PowerupCountdownRoutine(currentPowerup));
+            StartCoroutine(PowerupCountdownRoutine(_currentPowerup));
             
             Destroy(other.gameObject);
         }
@@ -60,18 +63,18 @@ public class PowerupHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(powerupSettings.powerupLifeTime);
         hasPowerup = false;
-        powerupIndicator.gameObject.SetActive(false);
-        Destroy(currentPowerup);
+        powerupIndicatorRenderer.enabled = false;
+        Destroy(_currentPowerup);
     }
     
     private void OnResetGame()
     {
         hasPowerup = false;
-        powerupIndicator.gameObject.SetActive(false);
+        powerupIndicatorRenderer.enabled = false;
         
-        if (currentPowerup)
+        if (_currentPowerup)
         {
-            Destroy(currentPowerup);
+            Destroy(_currentPowerup);
         }
     }
 }

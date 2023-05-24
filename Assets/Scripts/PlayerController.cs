@@ -3,28 +3,28 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject focalPoint;
-    private float speed = 5;
+    private float _speed = 5;
 
-    private Vector3 starPos;
-    private Rigidbody playerRb;
+    private Vector3 _starPos;
+    private Rigidbody _playerRb;
     
 
     private void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
-        starPos = transform.position;
+        _playerRb = GetComponent<Rigidbody>();
+        _starPos = transform.position;
     }
     
     private void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * (forwardInput * speed * Time.deltaTime * 100));
+        _playerRb.AddForce(focalPoint.transform.forward * (forwardInput * _speed * Time.deltaTime * 100));
 
         // GameOver
         if (transform.position.y < -15)
         {
-            transform.position = starPos;
-            playerRb.velocity = Vector3.zero;
+            transform.position = _starPos;
+            _playerRb.velocity = Vector3.zero;
             UI.ResetGame();
         }
         

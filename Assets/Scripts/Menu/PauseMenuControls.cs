@@ -7,11 +7,11 @@ public class PauseMenuControls : MonoBehaviour
     public float buttonsPressedAnimationDelay;
     public float buttonsNormalAnimationDelay;
     
-    private PauseController pauseController;
+    private PauseController _pauseController;
 
     private void Start()
     {
-        pauseController = GetComponent<PauseController>();
+        _pauseController = GetComponent<PauseController>();
     }
 
     public void ContinuePressed()
@@ -27,13 +27,13 @@ public class PauseMenuControls : MonoBehaviour
     private IEnumerator WaitAnimationForContinueRoutine()
     {
         yield return new WaitForSecondsRealtime(buttonsPressedAnimationDelay + buttonsNormalAnimationDelay);
-        pauseController.PauseGame(false);
+        _pauseController.PauseGame(false);
     }
     
     private IEnumerator WaitAnimationForExitRoutine()
     {
         yield return new WaitForSecondsRealtime(buttonsPressedAnimationDelay + buttonsNormalAnimationDelay);
-        pauseController.PauseGame(false);
+        _pauseController.PauseGame(false);
         SceneManager.LoadScene("Menu");
     }
 }
