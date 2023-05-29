@@ -11,5 +11,4 @@ Try to get 10 points!
 - A, D: rotate camera
 - W, S: push the black ball forward or backward in the direction of the camera
 ---
-- P or Space: pause game
-- Esc: exit in menu
+- Esc: pause game
