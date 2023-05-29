@@ -8,15 +8,17 @@ public class SpawnEnemiesAround : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnBallsAround());
+        StartCoroutine(SpawnBallsAroundRoutine());
     }
 
-    private IEnumerator SpawnBallsAround()
+    private IEnumerator SpawnBallsAroundRoutine()
     {
         while (true)
         {
             yield return new WaitForSeconds(_spawnCooldown);
-            Instantiate(enemyPrefab, transform.position + new Vector3(Random.Range(-1, 2) * Random.Range(3f, 5f), 0.1f, Random.Range(-1, 2) * Random.Range(3f, 5f)), enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab,
+                transform.position + new Vector3(Random.Range(0, 2) == 1 ? 1 : -1, -0.3f,
+                    Random.Range(0, 2) == 1 ? 1 : -1), enemyPrefab.transform.rotation);
         }
     }
 }

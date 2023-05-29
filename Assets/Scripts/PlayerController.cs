@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -15)
         {
             transform.position = _starPos;
+            transform.rotation = Quaternion.identity;
             _playerRb.velocity = Vector3.zero;
+            _playerRb.angularVelocity = Vector3.zero;
             UI.ResetGame();
         }
         

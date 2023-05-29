@@ -156,4 +156,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c3c107c4c5938479a7a2609c2f3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pushStrength: 15
+  pushStrength: 15
