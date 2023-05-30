@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class HomingRocketController : MonoBehaviour
 {
@@ -8,13 +6,15 @@ public class HomingRocketController : MonoBehaviour
 
     public float speed = 20;
     public float strength = 15;
-    
+
     private void Update()
     {
         if (target)
         {
-            transform.Translate((target.gameObject.transform.position - transform.position).normalized * (speed * Time.deltaTime), Space.World);
-            
+            transform.Translate(
+                (target.gameObject.transform.position - transform.position).normalized * (speed * Time.deltaTime),
+                Space.World);
+
             transform.forward = (target.gameObject.transform.position - transform.position).normalized;
         }
         else
@@ -27,7 +27,8 @@ public class HomingRocketController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<Rigidbody>().AddForce((other.gameObject.transform.position - transform.position).normalized * strength, ForceMode.Impulse);
+            other.gameObject.GetComponent<Rigidbody>().AddForce(
+                (other.gameObject.transform.position - transform.position).normalized * strength, ForceMode.Impulse);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Rocket"))

@@ -3,16 +3,16 @@ using UnityEngine;
 
 public sealed class HomingRocketsPowerup : Powerup
 {
-    
+    private float _rocketSpawnTimer;
     public void Update()
     {
-        if (powerupSettings.rocketCooldown < 0)
+        if (_rocketSpawnTimer < 0)
         {
             SpawnHomingRockets();
-            powerupSettings.rocketCooldown = 0.6f;
+            _rocketSpawnTimer = powerupSettings.rocketCooldown;
         }
 
-        powerupSettings.rocketCooldown -= Time.deltaTime;
+        _rocketSpawnTimer -= Time.deltaTime;
     }
 
     private void SpawnHomingRockets()

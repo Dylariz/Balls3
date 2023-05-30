@@ -16,6 +16,6 @@ public class PowerupSettings : ScriptableObject
     
     [Header("HomingRockets")]
     public GameObject rocketPrefab;
-    public float rocketCooldown = 0.8f;
+    public float rocketCooldown = 0.7f;
     public int countOfRocketsPerAttack = 4;
 }

@@ -9,7 +9,7 @@ public class SmashAttackPowerup : Powerup
     private void Start()
     {
         _playerRb = GetComponent<Rigidbody>();
-        StartCoroutine(SmashAttackWithRoutine());
+        StartCoroutine(SmashAttackRoutine());
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,12 +23,14 @@ public class SmashAttackPowerup : Powerup
             {
                 var enemyPlayerVector = enemies[i].gameObject.transform.position - transform.position;
                 var enemyRb = enemies[i].gameObject.GetComponent<Rigidbody>();
-                enemyRb.AddForce(enemyPlayerVector.normalized * powerupSettings.smashAttackImpulse * 5 / enemyPlayerVector.magnitude, ForceMode.Impulse);
+                enemyRb.AddForce(
+                    enemyPlayerVector.normalized * powerupSettings.smashAttackImpulse * 5 / enemyPlayerVector.magnitude,
+                    ForceMode.Impulse);
             }
         }
     }
-    
-    private IEnumerator SmashAttackWithRoutine()
+
+    private IEnumerator SmashAttackRoutine()
     {
         for (int i = 0; i < powerupSettings.countOfSmashAttacks; i++)
         {
@@ -36,7 +38,8 @@ public class SmashAttackPowerup : Powerup
             _inAir = true;
             yield return new WaitForSeconds(0.8f);
             _playerRb.AddForce(Vector3.down * (powerupSettings.smashAttackVerticalImpulse * 5), ForceMode.Impulse);
-            yield return new WaitForSeconds(powerupSettings.powerupLifeTime / powerupSettings.countOfSmashAttacks - 0.8f);
+            yield return new WaitForSeconds(
+                powerupSettings.powerupLifeTime / powerupSettings.countOfSmashAttacks - 0.8f); // 
         }
     }
 }

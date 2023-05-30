@@ -18,5 +18,5 @@ MonoBehaviour:
   smashAttackImpulse: 20
   countOfSmashAttacks: 4
   rocketPrefab: {fileID: 5241441452631822284, guid: 45b683d4123503648b173a23a3d27e7f, type: 3}
-  rocketCooldown: 0.27513635
+  rocketCooldown: 0.7
   countOfRocketsPerAttack: 4

@@ -12,13 +12,11 @@ public class PowerupHandler : MonoBehaviour
     [NonSerialized] public bool hasPowerup;
 
     private Powerup _currentPowerup;
-    private int _mainTex;
 
     private void Start()
     {
         UI.GameOver += OnResetGame;
         powerupIndicatorRenderer.enabled = false;
-        _mainTex = Shader.PropertyToID("_MainTex");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,13 +51,13 @@ public class PowerupHandler : MonoBehaviour
 
             _currentPowerup.powerupSettings = powerupSettings;
             StopAllCoroutines();
-            StartCoroutine(PowerupCountdownRoutine(_currentPowerup));
+            StartCoroutine(PowerupCountdownRoutine());
             
             Destroy(other.gameObject);
         }
     }
     
-    private IEnumerator PowerupCountdownRoutine(Powerup typoOfPowerup)
+    private IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(powerupSettings.powerupLifeTime);
         hasPowerup = false;

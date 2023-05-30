@@ -32,6 +32,7 @@ public class PauseMenuControls : MonoBehaviour
     
     private IEnumerator WaitAnimationForExitRoutine()
     {
+        UI.ClearGameOverSubscribers();
         yield return new WaitForSecondsRealtime(buttonsPressedAnimationDelay + buttonsNormalAnimationDelay);
         _pauseController.PauseGame(false);
         SceneManager.LoadScene("Menu");
