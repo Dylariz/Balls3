@@ -1,5 +1,6 @@
 # Balls3
-It's a simple game for relax.... 
+It's a simple game created on Unity
+Just relax...
 
 ## Task:
 Drop all enemies down and don't fall
